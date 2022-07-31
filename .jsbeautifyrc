@@ -4,7 +4,7 @@
 		"indent_with_tabs": true,
 		"end_with_newline": true,
 		"preserve_newlines": true,
-		"max_preserve_newlines": 0,
+		"max_preserve_newlines": 2,
 		"indent_inner_html": false,
 		"brace_style": "collapse",
 		"indent_scripts": "normal",
@@ -21,6 +21,10 @@
 	},
 	"css": {
 		"preserve_newlines": true,
-		"max_preserve_newlines": 0
+		"max_preserve_newlines": 2
+	},
+	"js": {
+		"preserve_newlines": true,
+		"max_preserve_newlines": 2
 	}
 }

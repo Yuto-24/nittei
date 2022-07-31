@@ -1,3 +1,4 @@
+var countTimeClick = 0;
 $(function() {
     var urlSearch = location.search;
     urlSearch = urlSearch.slice(1);
@@ -8,11 +9,10 @@ $(function() {
         $("h1").html(urlSearch + "メーカー");
     }
 
-
     var onSelectTimeFlag;
     var onSelectDateFlag = false;
 
-    $('#datetimepicker').datetimepicker({
+    $('#dateTimePicker').dateTimePicker({
         formatTime: 'H:i',
         formatDate: 'd.m.Y',
         defaultTime: '8:30',
@@ -21,54 +21,55 @@ $(function() {
         lang: 'ja',
         timepickerScrollbar: false,
         onSelectDate: function(dateText) {
-            var now_result = $("#result").val();
-            $(".copy_btn").removeClass("clicked");
-            $("#result").val(now_result + dateText.dateFormat('　・m月d日'));
             var WeekCharsJa = ["（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）"];
-            var WeekCharsEn = ["  - Sun, ", "  - Mon, ", "  - Tue, ", "  - Wed, ", "  - Thu, ", "  - Fri, ", "  - Sat, "];
-            var wDay = dateText.getDay();
-            // $("#result").val(now_result + WeekCharsJa[wDay] + dateText.dateFormat('F d'));
+            var WeekCharsEn = ["  - Sun. ", "  - Mon. ", "  - Tue. ", "  - Wed. ", "  - Thu. ", "  - Fri. ", "  - Sat, "];
             var now_result = $("#result").val();
-            $("#result").val(now_result + WeekCharsJa[wDay]);
+            var wDay = dateText.getDay();
+            $(".copy_btn").removeClass("clicked");
+            countTimeClick = 0;
+            if (toggle.checked) {
+                $("#result").val(now_result + "\n" + WeekCharsEn[wDay] + dateText.dateFormat('F d'));
+                now_result = $("#result").val();
+            } else {
+                $("#result").val(now_result + "\n" + dateText.dateFormat('　・m月d日'));
+                now_result = $("#result").val();
+                $("#result").val(now_result + WeekCharsJa[wDay]);
+                now_result = $("#result").val();
+            }
             onSelectTimeFlag = false;
             onSelectDateFlag = true;
         },
+
         onSelectTime: function(dateText) {
+            countTimeClick += 1;
+            console.log(`${countTimeClick}`);
             var now_result = $("#result").val();
             $(".copy_btn").removeClass("clicked");
             if (onSelectTimeFlag) {
-                $("#result").val(now_result + dateText.dateFormat('H:i') + "\n");
+                $("#result").val(now_result + dateText.dateFormat('H:i'));
                 onSelectTimeFlag = false;
                 onSelectDateFlag = false;
             } else {
-                $("#result").val(now_result + dateText.dateFormat('H:i～'));
+                if (toggle.checked) {
+                    $("#result").val(now_result + dateText.dateFormat(', H:i - '));
+                } else {
+                    $("#result").val(now_result + dateText.dateFormat('H:i～'));
+                    if (countTimeClick % 2 == 1 && countTimeClick > 1) {
+                        $("#result").val(now_result + "、" + dateText.dateFormat('H:i～'));
+                    }
+                }
                 onSelectTimeFlag = true;
             }
         },
     });
 
-    $('.full').click(function() {
-        var now_result = $("#result").val();
-        if (onSelectDateFlag) {
-            $("#result").val(now_result + '\n');
-        }
-        onSelectTimeFlag = false;
-        onSelectDateFlag = false;
-        // var now_str = $("#result").val();
-        // $("#result").val(now_str.replace(/,\s{2}/g, '\n') + '');
-    })
-
+    // Copyボタン クリック時
     $('.copy_btn').click(function() {
-        var copyText = document.querySelector('#result');
-        var range = document.createRange();
-        range.selectNode(copyText);
-        getSelection().removeAllRanges();
-        getSelection().addRange(range);
+        var clipboardText = result.value.slice(1);
         try {
-            var successful = document.execCommand('copy');
+            var successful = navigator.clipboard.writeText(clipboardText);
             var msg = successful ? 'successful' : 'unsuccessful';
             console.log('Copy command was ' + msg);
-            //alert('コピーしました');
             $(this).addClass("clicked");
         } catch (err) {
             console.log('Oops, unable to copy');
@@ -77,9 +78,17 @@ $(function() {
         window.getSelection().removeAllRanges();
     });
 
-
+    // Resetボタン クリック時
     $('.reset_btn').click(function() {
         $("#result").val("");
         $(".copy_btn").removeClass("clicked");
     });
 });
+
+function buttonClick() {
+    if (toggle.checked) {
+        console.clear();
+        console.log("English mode");
+        // alert("English");
+    }
+}

@@ -8,10 +8,9 @@ $(function() {
         $("h1").html(urlSearch + "メーカー");
     }
 
-
     var onSelectTimeFlag;
 
-    $('#datetimepicker').datetimepicker({
+    $('#dateTimePicker').dateTimePicker({
         formatTime: 'H:i',
         formatDate: 'd.m.Y',
         defaultTime: '9:00',
@@ -21,9 +20,9 @@ $(function() {
         timepickerScrollbar: false,
         onSelectDate: function(dateText) {
             var now_result = $("#result").val();
-            $(".copy_btn").removeClass("clicked");
             var WeekChars = ["  - Sun, ", "  - Mon, ", "  - Tue, ", "  - Wed, ", "  - Thu, ", "  - Fri, ", "  - Sat, "];
             var wDay = dateText.getDay();
+            $(".copy_btn").removeClass("clicked");
             $("#result").val(now_result + WeekChars[wDay] + dateText.dateFormat('F d'));
             var now_result = $("#result").val();
             $("#result").val(now_result);
@@ -68,7 +67,6 @@ $(function() {
         // 選択状態を解除する  
         window.getSelection().removeAllRanges();
     });
-
 
     $('.reset_btn').click(function() {
         $("#result").val("");
