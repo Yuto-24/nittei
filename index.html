@@ -22,7 +22,7 @@
 
 <body>
 <div id="h1box">
-	<h1>以下の日程でご都合いかがでしょうかメーカー</h1>
+	<h1 id="h1boxInner">以下の日程でご都合いかがでしょうかメーカー</h1>
 </div>
 
 English Button
@@ -30,6 +30,20 @@ English Button
 	<input id="toggle" class="toggle_input" type='checkbox' />
 	<label for="toggle" class="toggle_label">
 </div>
+
+<script>
+	var toggleCounter = 0;
+	toggle.addEventListener("click", function() {
+		console.log("clicked");
+		toggleCounter += 1;
+		if (toggleCounter % 2 == 1) {
+			h1boxInner.innerHTML = "Would the following schedule be convenient for you? Maker";
+		} else {
+			h1boxInner.innerHTML = "以下の日程でご都合いかがでしょうか メーカー";
+		}
+	});
+
+</script>
 
 <input id="dateTimePicker" type="text">
 <div class="textarea_box">
