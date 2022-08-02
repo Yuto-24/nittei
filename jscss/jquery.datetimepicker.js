@@ -4,6 +4,7 @@
  * (c) 2014, Chupurnov Valeriy.
  */
 /*global document,window,jQuery,setTimeout,clearTimeout*/
+
 (function($) {
     'use strict';
     var default_options = {

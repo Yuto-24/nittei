@@ -210,7 +210,6 @@ footer {
     display: block;
     height: 30px;
     opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     outline: medium none;
     overflow: hidden;
     padding: 0;
@@ -266,7 +265,6 @@ footer {
 .xdsoft_dateTimePicker .xdsoft_next:hover,
 .xdsoft_dateTimePicker .xdsoft_prev:hover {
     opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
 .xdsoft_dateTimePicker .xdsoft_label {
@@ -399,13 +397,11 @@ footer {
 .xdsoft_dateTimePicker .xdsoft_calendar td.xdsoft_disabled,
 .xdsoft_dateTimePicker .xdsoft_time_box>div>div.xdsoft_disabled {
     opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     cursor: default;
 }
 
 .xdsoft_dateTimePicker .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
     opacity: 0.2;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
 }
 
 .xdsoft_dateTimePicker .xdsoft_calendar td:hover,
