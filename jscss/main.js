@@ -1,4 +1,5 @@
 var countTimeClick = 0;
+var countDayClick = false;
 $(function() {
     var urlSearch = location.search;
     urlSearch = urlSearch.slice(1);
@@ -27,15 +28,18 @@ $(function() {
             var wDay = dateText.getDay();
             $(".copy_btn").removeClass("clicked");
             countTimeClick = 0;
-            if (toggle.checked) {
-                $("#result").val(now_result + "\n" + WeekCharsEn[wDay] + dateText.dateFormat('F d'));
-                now_result = $("#result").val();
+            if (!countDayClick) {
+                countDayClick = true;
             } else {
-                $("#result").val(now_result + "\n" + dateText.dateFormat('　・m月d日'));
-                now_result = $("#result").val();
-                $("#result").val(now_result + WeekCharsJa[wDay]);
+                $("#result").val(now_result + "\n");
                 now_result = $("#result").val();
             }
+            if (toggle.checked) {
+                $("#result").val(now_result + WeekCharsEn[wDay] + dateText.dateFormat('F d'));
+            } else {
+                $("#result").val(now_result + dateText.dateFormat('　・m月d日') + WeekCharsJa[wDay]);
+            }
+            now_result = $("#result").val();
             onSelectTimeFlag = false;
             onSelectDateFlag = true;
         },
@@ -65,7 +69,7 @@ $(function() {
 
     // Copyボタン クリック時
     $('.copy_btn').click(function() {
-        var clipboardText = result.value.slice(1);
+        var clipboardText = result.value.slice(0);
         try {
             var successful = navigator.clipboard.writeText(clipboardText);
             var msg = successful ? 'successful' : 'unsuccessful';
